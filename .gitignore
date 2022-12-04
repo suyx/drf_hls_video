@@ -1,0 +1,4 @@
+venv/
+.env
+.postgres
+.DS_Store

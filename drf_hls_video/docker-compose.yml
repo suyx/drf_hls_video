@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - drf_hls_video:/var/lib/postgresql/data/
+
+
+  host:
+    build:
+      context: ./
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    command: /bin/bash -c './wait-for-it.sh postgres:5432 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000'
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/code
+    environment:
+      - PYTHONUNBUFFERED=1
+
+
+volumes:
+  drf_hls_video:
+
+networks:
+  default:
