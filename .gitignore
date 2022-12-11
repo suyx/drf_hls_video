@@ -2,3 +2,7 @@ venv/
 .env
 .postgres
 .DS_Store
+celerybeat-schedule
+*.mp4
+*.m3u8
+*.pyc

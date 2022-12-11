@@ -9,7 +9,6 @@ services:
     volumes:
       - drf_hls_video:/var/lib/postgresql/data/
 
-
   host:
     build:
       context: ./
@@ -22,9 +21,29 @@ services:
       - postgres
     volumes:
       - ./:/code
+      - drf_hls_video:/media
     environment:
       - PYTHONUNBUFFERED=1
 
+  redis:
+    restart: unless-stopped
+    image: redis
+
+  celery:
+    build:
+      context: ./
+    env_file:
+      - .env
+    command: /bin/bash -c './wait-for-it.sh postgres:5432 -- celery -A drf_hls_video worker -B -l info'
+    environment:
+      - C_FORCE_ROOT=1
+      - PIP_INDEX_URL
+    volumes:
+      - ./:/code
+      - drf_hls_video:/media # shared with host for access to videos
+    depends_on:
+      - host
+      - redis
 
 volumes:
   drf_hls_video:

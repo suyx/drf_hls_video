@@ -34,6 +34,9 @@ urlpatterns = [
 
     # Upload api
     path('files/', include('uploads.urls')),
+
+    # get/update/delete hls video
+    path('hls/', include('videos.urls')),
 ]
 
 # Important

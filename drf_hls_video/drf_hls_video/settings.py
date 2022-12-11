@@ -147,3 +147,11 @@ AUTH_USER_MODEL = "accounts.User"
 
 MEDIA_ROOT = "/media"
 MEDIA_URL = "/file/"
+
+
+CELERY_BACKEND_URL = "redis://redis"
+CELERY_BROKER_URL = "redis://redis"
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+CELERY_IMPORTS = ("videos.tasks")  # add tasks here

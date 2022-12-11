@@ -7,10 +7,10 @@
     - APIs with read only permission if not authenticated
     - Video/Image file validation
     - HLS videos
+    - Use celery to handle the conversion
+    - Forced conversion to HLS when not created automatically
 
 
 # Imrovements coming soon
-    - Use celery to handle the conversion
-    - Forced conversion to HLS when not created automatically
     - Upload to AWS
     - Upload to IPFS

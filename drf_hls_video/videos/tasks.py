@@ -1,8 +1,7 @@
 from .utils import convert_to_hls
+from drf_hls_video.celery import app
 
 
+@app.task(ignore_result=True)
 def task_convert_to_hls_video(upload):
-    """
-    Turn this into a celery task
-    """
     convert_to_hls(upload)
